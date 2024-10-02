@@ -2,11 +2,7 @@ package services
 
 import (
 	"fmt"
-	"os"
-	"strings"
-	"text/tabwriter"
 
-	"github.com/chancehl/terminal-jeopardy/pkg/constants"
 	"github.com/chancehl/terminal-jeopardy/pkg/models"
 )
 
@@ -19,7 +15,7 @@ type gameService struct {
 
 type GameState struct {
 	answered map[int]bool
-	round    string
+	round    models.JeopardyRound
 	active   bool
 }
 
@@ -30,54 +26,20 @@ func NewGameService(game models.JeopardyGame) *gameService {
 
 // Starts the game and assigns default values to state
 func (s *gameService) StartGame() {
+	// assign default state
 	s.state = GameState{
 		active:   true,
 		answered: make(map[int]bool),
-		round:    constants.Rounds.Jeopardy,
+		round:    s.game.Rounds[0],
 	}
+
+	// print round
+	s.state.round.PrintRoundCategories()
 }
 
 // Gets a reference to the current round
-func (s *gameService) GetCurrentRound() (*models.JeopardyRound, error) {
-	for _, round := range s.game.Rounds {
-		if round.Name == s.state.round {
-			return &round, nil
-		}
-	}
-	return nil, fmt.Errorf("could not locate current round")
-}
-
-// Prints the categories to the std out
-func (s *gameService) PrintCategories(round models.JeopardyRound) {
-	writer := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.DiscardEmptyColumns)
-
-	var headers []string
-	for _, category := range round.Categories {
-		headers = append(headers, category.Name)
-	}
-
-	header := strings.Join(headers, "\t")
-
-	fmt.Fprintln(writer, header)
-
-	var values []int
-
-	if round.Name == constants.Rounds.Jeopardy {
-		values = []int{200, 400, 600, 800, 1000}
-	} else if round.Name == constants.Rounds.DoubleJeopardy {
-		values = []int{400, 800, 1200, 1600, 2000}
-	} else {
-		values = []int{-1} // TODO: implement wager
-	}
-
-	for _, value := range values {
-		for i := 0; i < len(round.Categories); i++ {
-			fmt.Fprintf(writer, "%d\t", value)
-		}
-		fmt.Fprintf(writer, "\n")
-	}
-
-	writer.Flush()
+func (s *gameService) GetCurrentRound() *models.JeopardyRound {
+	return &s.state.round
 }
 
 // Marks a question as answered
