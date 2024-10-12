@@ -9,7 +9,7 @@ import (
 type GameService interface{}
 
 type gameService struct {
-	game  models.JeopardyGame
+	game  *models.JeopardyGame
 	state GameState
 }
 
@@ -20,7 +20,7 @@ type GameState struct {
 }
 
 // Instantiates a new game service
-func NewGameService(game models.JeopardyGame) *gameService {
+func NewGameService(game *models.JeopardyGame) *gameService {
 	return &gameService{state: GameState{}, game: game}
 }
 

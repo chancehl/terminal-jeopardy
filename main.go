@@ -27,8 +27,8 @@ func main() {
 	}
 
 	// instantiate game data and service
-	game := generators.GenerateGame(*questions)
-	gameService := services.NewGameService(game)
+	game := generators.GenerateGame(questions)
+	gameService := services.NewGameService(&game)
 
 	// start the game
 	gameService.StartGame()
