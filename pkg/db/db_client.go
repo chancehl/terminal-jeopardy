@@ -55,7 +55,7 @@ func (c *dbClient) GetQuestionById(id int) (*models.JeopardyQuestion, error) {
 }
 
 // Gets all questions in database
-func (c *dbClient) GetQuestions() (*[]models.JeopardyQuestion, error) {
+func (c *dbClient) GetAllQuestions() (*[]models.JeopardyQuestion, error) {
 	var questions []models.JeopardyQuestion
 
 	rows, err := c.db.Query("SELECT id, game_id, category, round, prompt, answer, monetary_value FROM questions")

@@ -2,10 +2,13 @@ package models
 
 import (
 	"fmt"
+	"maps"
 	"os"
 	"sort"
 	"strings"
 	"text/tabwriter"
+
+	"github.com/chancehl/terminal-jeopardy/pkg/constants"
 )
 
 type JeopardyRound struct {
@@ -28,13 +31,13 @@ func (r *JeopardyRound) PrintRoundCategories() {
 		}
 	}
 
-	sort.Ints(values)
-
 	fmt.Fprintln(writer, strings.Join(headers, "\t"))
 
-	for _, value := range values {
-		for i := 0; i < len(r.Categories); i++ {
-			fmt.Fprintf(writer, "%d\t", value)
+	uniqueValues := getUniqueValues(values)
+
+	for i := 0; i < len(uniqueValues); i++ {
+		for j := 0; j < constants.Rounds.CategoriesPerRound; j++ {
+			fmt.Fprintf(writer, "%d\t", uniqueValues[i])
 		}
 		fmt.Fprintf(writer, "\n")
 	}
@@ -43,7 +46,7 @@ func (r *JeopardyRound) PrintRoundCategories() {
 }
 
 // Prints the current round to the console (not going to lie... ChatGPT wrote this 🙏)
-func (r *JeopardyRound) PrintRound() {
+func (r *JeopardyRound) PrintDecoratedRoundName() {
 	width := 50 // minimum width of 50 chars
 
 	// Calculate padding on each side of the input string
@@ -58,4 +61,22 @@ func (r *JeopardyRound) PrintRound() {
 	fmt.Println(decoration)
 	fmt.Printf("*%s%s%s*\n", leftPadding, r.Name, rightPadding)
 	fmt.Println(decoration)
+}
+
+func getUniqueValues(values []int) []int {
+	uniqueValues := make([]int, 0)
+
+	valueMap := make(map[int]bool)
+
+	for _, value := range values {
+		valueMap[value] = true
+	}
+
+	for key := range maps.Keys(valueMap) {
+		uniqueValues = append(uniqueValues, key)
+	}
+
+	sort.Ints(uniqueValues)
+
+	return uniqueValues
 }

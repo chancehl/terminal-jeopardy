@@ -15,16 +15,13 @@ func main() {
 	}
 	defer dbConnection.Close()
 
-	// err = db.SeedDatabase(db.RoundCounts{Jeopardy: 500, DoubleJeopardy: 500, FinalJeopardy: 50})
-	// if err != nil {
+	// if err := db.SeedDatabase(); err != nil {
 	// 	log.Fatalf("could not seed database: %v", err)
-	// } else {
-	// 	fmt.Println("seeded database")
 	// }
 
 	dbClient := db.NewDbClient(dbConnection)
 
-	questions, err := dbClient.GetQuestions()
+	questions, err := dbClient.GetAllQuestions()
 	if err != nil {
 		log.Fatalf("could not retrieve questions: %v", err)
 	}
