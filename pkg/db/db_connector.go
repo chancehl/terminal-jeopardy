@@ -7,7 +7,7 @@ import (
 )
 
 func GetDbConnection() (*sql.DB, error) {
-	connectionString := "user=postgres password=postgres dbname=terminal-jeopardy sslmode=disable"
+	connectionString := "user=postgres password=postgres dbname=jeopardy sslmode=disable"
 
 	db, err := sql.Open("postgres", connectionString)
 	if err != nil {
