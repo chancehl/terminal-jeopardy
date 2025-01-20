@@ -3,7 +3,7 @@ package db
 import (
 	"log"
 
-	"github.com/chancehl/terminal-jeopardy/pkg/parser"
+	"github.com/chancehl/terminal-jeopardy/internal/parser"
 )
 
 // Seeds the database

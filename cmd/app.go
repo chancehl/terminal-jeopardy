@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 
-	"github.com/chancehl/terminal-jeopardy/pkg/db"
-	"github.com/chancehl/terminal-jeopardy/pkg/generators"
-	"github.com/chancehl/terminal-jeopardy/pkg/services"
+	"github.com/chancehl/terminal-jeopardy/internal/db"
+	"github.com/chancehl/terminal-jeopardy/internal/generators"
+	"github.com/chancehl/terminal-jeopardy/internal/services"
 )
 
 func main() {

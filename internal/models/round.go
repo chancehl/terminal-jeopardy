@@ -8,7 +8,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/chancehl/terminal-jeopardy/pkg/constants"
+	"github.com/chancehl/terminal-jeopardy/internal/constants"
 )
 
 type JeopardyRound struct {

@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/chancehl/terminal-jeopardy/pkg/models"
+	"github.com/chancehl/terminal-jeopardy/internal/models"
 )
 
 type DbClient interface {

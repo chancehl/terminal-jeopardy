@@ -3,7 +3,7 @@ package services
 import (
 	"fmt"
 
-	"github.com/chancehl/terminal-jeopardy/pkg/models"
+	"github.com/chancehl/terminal-jeopardy/internal/models"
 )
 
 type GameService interface{}

@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/chancehl/terminal-jeopardy/pkg/constants"
-	"github.com/chancehl/terminal-jeopardy/pkg/models"
+	"github.com/chancehl/terminal-jeopardy/internal/constants"
+	"github.com/chancehl/terminal-jeopardy/internal/models"
 )
 
 // Generates a seed for the provided rounds of jeopardy

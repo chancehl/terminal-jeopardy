@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/chancehl/terminal-jeopardy/pkg/models"
+	"github.com/chancehl/terminal-jeopardy/internal/models"
 )
 
 func ParseQuestionsJson() ([]models.JeopardyQuestion, error) {
