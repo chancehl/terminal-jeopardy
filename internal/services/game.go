@@ -21,7 +21,7 @@ type GameState struct {
 
 // Instantiates a new game service
 func NewGameService(dbc *db.DbClient) *gameService {
-	return &gameService{state: GameState{}, dbc: dbc}
+	return &gameService{dbc: dbc}
 }
 
 // Generates a game
