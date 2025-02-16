@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/chancehl/terminal-jeopardy/internal/models"
+	"github.com/chancehl/terminal-jeopardy/internal/parser"
 )
 
 type DbClient interface {
@@ -19,6 +20,21 @@ type dbClient struct {
 // Instantiates a new questions database client
 func NewDbClient(db *sql.DB) *dbClient {
 	return &dbClient{db}
+}
+
+// Seeds the database
+func (c *dbClient) SeedDatabase() error {
+	allQuestions, err := parser.ParseQuestionsJson()
+	if err != nil {
+		return err
+	}
+
+	err = c.CreateQuestions(allQuestions)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // Inserts multiple questions into the database
