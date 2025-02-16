@@ -32,10 +32,10 @@ func generateSeed(rounds []models.JeopardyRound) string {
 }
 
 // Groups questions by round
-func groupByRound(questions *[]models.JeopardyQuestion) map[string][]models.JeopardyQuestion {
+func groupByRound(questions []models.JeopardyQuestion) map[string][]models.JeopardyQuestion {
 	grouped := make(map[string][]models.JeopardyQuestion)
 
-	for _, question := range *questions {
+	for _, question := range questions {
 		grouped[question.Round] = append(grouped[question.Round], question)
 	}
 
@@ -103,7 +103,7 @@ func generateCategoriesFromQuestions(questions []models.JeopardyQuestion) []mode
 }
 
 // Generates a random round of Jeopardy
-func generateRounds(questions *[]models.JeopardyQuestion) []models.JeopardyRound {
+func generateRounds(questions []models.JeopardyQuestion) []models.JeopardyRound {
 	grouped := groupByRound(questions)
 
 	jeopardyRoundQuestions := pickRandomQuestions(grouped[constants.Rounds.Jeopardy], false)
@@ -129,7 +129,7 @@ func generateRounds(questions *[]models.JeopardyQuestion) []models.JeopardyRound
 }
 
 // Generates a random Jeopardy game with random categories, questions
-func GenerateGame(questions *[]models.JeopardyQuestion) models.JeopardyGame {
+func GenerateGame(questions []models.JeopardyQuestion) models.JeopardyGame {
 	rounds := generateRounds(questions)
 	seed := generateSeed(rounds)
 

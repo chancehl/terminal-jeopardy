@@ -1,35 +1,9 @@
 package main
 
 import (
-	"log"
-
-	"github.com/chancehl/terminal-jeopardy/internal/db"
-	"github.com/chancehl/terminal-jeopardy/internal/generators"
-	"github.com/chancehl/terminal-jeopardy/internal/services"
+	"fmt"
 )
 
 func main() {
-	dbConnection, err := db.GetDbConnection()
-	if err != nil {
-		log.Fatalf("could not create database connection: %v", err)
-	}
-	defer dbConnection.Close()
-
-	// if err := db.SeedDatabase(); err != nil {
-	// 	log.Fatalf("could not seed database: %v", err)
-	// }
-
-	dbClient := db.NewDbClient(dbConnection)
-
-	questions, err := dbClient.GetAllQuestions()
-	if err != nil {
-		log.Fatalf("could not retrieve questions: %v", err)
-	}
-
-	// instantiate game data and service
-	game := generators.GenerateGame(questions)
-	gameService := services.NewGameService(&game)
-
-	// start the game
-	gameService.StartGame()
+	fmt.Println("hello world")
 }

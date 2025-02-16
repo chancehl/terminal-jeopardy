@@ -8,17 +8,17 @@ import (
 	"github.com/chancehl/terminal-jeopardy/internal/parser"
 )
 
-type dbClient struct {
+type DbClient struct {
 	db *sql.DB
 }
 
 // Instantiates a new questions database client
-func NewDbClient(db *sql.DB) *dbClient {
-	return &dbClient{db}
+func NewDbClient(db *sql.DB) *DbClient {
+	return &DbClient{db}
 }
 
 // Seeds the database
-func (c *dbClient) SeedDatabase() error {
+func (c *DbClient) SeedDatabase() error {
 	allQuestions, err := parser.ParseQuestionsJson()
 	if err != nil {
 		return err
@@ -33,7 +33,7 @@ func (c *dbClient) SeedDatabase() error {
 }
 
 // Inserts multiple questions into the database
-func (c *dbClient) CreateQuestions(questions []models.JeopardyQuestion) error {
+func (c *DbClient) CreateQuestions(questions []models.JeopardyQuestion) error {
 	statement, err := c.db.Prepare(`INSERT INTO questions (id, game_id, category, round, prompt, answer, monetary_value) VALUES ($1, $2, $3, $4, $5, $6, $7)`)
 	if err != nil {
 		return fmt.Errorf("could not prepare statement: %v", err)
@@ -50,7 +50,7 @@ func (c *dbClient) CreateQuestions(questions []models.JeopardyQuestion) error {
 }
 
 // Gets a question by ID
-func (c *dbClient) GetQuestionById(id int) (*models.JeopardyQuestion, error) {
+func (c *DbClient) GetQuestionById(id int) (*models.JeopardyQuestion, error) {
 	var question models.JeopardyQuestion
 
 	query := `SELECT id, game_id, category, round, prompt, answer, monetary_value FROM questions WHERE id = $1`
@@ -66,7 +66,7 @@ func (c *dbClient) GetQuestionById(id int) (*models.JeopardyQuestion, error) {
 }
 
 // Gets all questions in database
-func (c *dbClient) GetAllQuestions() (*[]models.JeopardyQuestion, error) {
+func (c *DbClient) GetAllQuestions() ([]models.JeopardyQuestion, error) {
 	var questions []models.JeopardyQuestion
 
 	rows, err := c.db.Query("SELECT id, game_id, category, round, prompt, answer, monetary_value FROM questions")
@@ -85,5 +85,5 @@ func (c *dbClient) GetAllQuestions() (*[]models.JeopardyQuestion, error) {
 		questions = append(questions, question)
 	}
 
-	return &questions, nil
+	return questions, nil
 }
