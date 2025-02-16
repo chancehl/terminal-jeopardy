@@ -8,11 +8,6 @@ import (
 	"github.com/chancehl/terminal-jeopardy/internal/parser"
 )
 
-type DbClient interface {
-	CreateQuestions(questions []models.JeopardyQuestion) error
-	GetQuestionById(id int) (*models.JeopardyQuestion, error)
-}
-
 type dbClient struct {
 	db *sql.DB
 }
