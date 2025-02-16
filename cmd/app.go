@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	p := tea.NewProgram(internal_tea.InitialModel())
+	p := tea.NewProgram(internal_tea.InitializeModel())
 	if _, err := p.Run(); err != nil {
 		fmt.Printf("an error happened: %v", err)
 		os.Exit(1)
