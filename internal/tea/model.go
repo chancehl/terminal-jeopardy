@@ -12,7 +12,7 @@ type Model struct {
 	cursorY int
 }
 
-var Service services.GameService
+var gameService services.GameService
 
 func InitializeModel() Model {
 	sqlc, err := db.GetDbConnection()
@@ -26,10 +26,10 @@ func InitializeModel() Model {
 		panic(err)
 	}
 
-	Service = *services.NewGameService(questions)
+	gameService = *services.NewGameService(questions)
 
 	return Model{
-		game:    Service.CreateNewGame(),
+		game:    gameService.CreateNewGame(),
 		cursorX: 0,
 		cursorY: 0,
 	}

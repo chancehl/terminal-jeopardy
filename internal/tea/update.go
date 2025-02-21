@@ -10,7 +10,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "q":
 			return m, tea.Quit
 		case "r":
-			m.game = Service.CreateNewGame()
+			m.game = gameService.CreateNewGame()
 		case "up":
 			m.cursorY++
 		case "down":
