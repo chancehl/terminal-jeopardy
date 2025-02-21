@@ -3,28 +3,13 @@ package internal_tea
 import "fmt"
 
 func (m Model) View() string {
-	s := "What should we buy at the market?\n\n"
+	s := "Model state:\n\n"
 
-	for i, choice := range m.choices {
+	s += fmt.Sprintf("seed: %s\n", m.game.Seed)
+	s += fmt.Sprintf("cursorX: %d\n", m.cursorX)
+	s += fmt.Sprintf("cursorY: %d\n", m.cursorY)
 
-		// Is the cursor pointing at this choice?
-		cursor := " " // no cursor
-		if m.cursor == i {
-			cursor = ">" // cursor!
-		}
-
-		// Is this choice selected?
-		checked := " " // not selected
-		if _, ok := m.selected[i]; ok {
-			checked = "x" // selected!
-		}
-
-		// Render the row
-		s += fmt.Sprintf("%s [%s] %s\n", cursor, checked, choice)
-	}
-
-	// The footer
-	s += "\nPress q to quit.\n"
+	s += "\nPress r to regenerate game or q to quit.\n"
 
 	// Send the UI for rendering
 	return s

@@ -9,22 +9,16 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch key {
 		case "q":
 			return m, tea.Quit
+		case "r":
+			m.game = Service.CreateNewGame()
 		case "up":
-			if m.cursor > 0 {
-				m.cursor--
-			}
+			m.cursorY++
 		case "down":
-			if m.cursor < len(m.choices)-1 {
-				m.cursor++
-			}
-
-		case "enter":
-			_, ok := m.selected[m.cursor]
-			if ok {
-				delete(m.selected, m.cursor)
-			} else {
-				m.selected[m.cursor] = struct{}{}
-			}
+			m.cursorY--
+		case "left":
+			m.cursorX--
+		case "right":
+			m.cursorX++
 		}
 	}
 	return m, nil
