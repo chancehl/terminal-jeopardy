@@ -1,6 +1,8 @@
 package internal_tea
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func (m Model) View() string {
 	s := "Model state:\n\n"
@@ -11,6 +13,5 @@ func (m Model) View() string {
 
 	s += "\nPress r to regenerate game or q to quit.\n"
 
-	// Send the UI for rendering
 	return s
 }
