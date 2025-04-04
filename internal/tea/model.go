@@ -8,7 +8,6 @@ import (
 
 type Model struct {
 	game    models.JeopardyGame
-	round   int
 	cursorX int
 	cursorY int
 }
@@ -28,10 +27,10 @@ func InitializeModel() Model {
 	}
 
 	gameService = *services.NewGameService(questions)
+	game := gameService.CreateNewGame()
 
 	return Model{
-		game:    gameService.CreateNewGame(),
-		round:   0,
+		game:    game,
 		cursorX: 0,
 		cursorY: 0,
 	}
