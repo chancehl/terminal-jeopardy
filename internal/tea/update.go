@@ -1,6 +1,9 @@
 package internal_tea
 
-import tea "github.com/charmbracelet/bubbletea"
+import (
+	"github.com/chancehl/terminal-jeopardy/internal/constants"
+	tea "github.com/charmbracelet/bubbletea"
+)
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
@@ -12,13 +15,21 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "r":
 			m.game = gameService.CreateNewGame()
 		case "up":
-			m.cursorY++
+			if m.cursorY < constants.Rounds.QuestionsPerCategory {
+				m.cursorY++
+			}
 		case "down":
-			m.cursorY--
+			if m.cursorY > 0 {
+				m.cursorY--
+			}
 		case "left":
-			m.cursorX--
+			if m.cursorX > 0 {
+				m.cursorX--
+			}
 		case "right":
-			m.cursorX++
+			if m.cursorX < constants.Rounds.CategoriesPerRound {
+				m.cursorX++
+			}
 		}
 	}
 	return m, nil
